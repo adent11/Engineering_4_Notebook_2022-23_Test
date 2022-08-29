@@ -56,7 +56,10 @@ What went wrong / was challenging, how'd you figure it out, and what did you lea
 Your readme will have various images and gifs on it. Upload a test image and test gif to make sure you've got the process figured out. Pick whatever image and gif you want!
 
 ### Test Link
+[Test.py](raspberry-pi/temp.py)
 
 ### Test Image
+![Image](images/c573bf41-6a7c-4927-845c-4ca0260aad6b-1520x800.jpeg)
 
 ### Test GIF
+![GIF](images/winky.gif)
