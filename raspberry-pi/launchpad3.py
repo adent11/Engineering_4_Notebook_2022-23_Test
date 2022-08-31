@@ -8,17 +8,29 @@ gLed.direction = digitalio.Direction.OUTPUT
 button.direction = digitalio.Direction.INPUT
 button.pull = digitalio.Pull.DOWN
 
-while button.value == False:
-    print('a')
+print("File run")
 
-for i in range(10):
-    print(10-i)
-    rLed.value = True
-    sleep(.1)
-    rLed.value = False
-    sleep(.9)
-print("Liftoff.")
-gLed.value = True
+lifted = False
+while lifted == False:
+    aborted = False
+    while button.value == False:
+        pass
+    for i in range(10):
+        print(10-i)
+        rLed.value = True
+        sleep(.1)
+        rLed.value = False
+        sleep(.9)
+        if button.value == True:
+            print("Operation Aborted.")
+            sleep(.5)
+            aborted = True
+            break
+    if not aborted:
+        lifed = True
+        gLed.value = True
+        print("Liftoff.")
+
 
 while True:
     pass
