@@ -15,3 +15,17 @@ led.direction = digitalio.Direction.OUTPUT
 while True:
     accel = mpu.acceleration
     led.value = accel[2] < 0
+    # create the display group
+    splash = displayio.Group()
+
+    # add title block to display group
+    title = "ANGULAR VELOCITY"
+    # the order of this command is (font, text, text color, and location)
+    text_area = label.Label(terminalio.FONT, text=title, color=0xFFFF00, x=5, y=5)
+    splash.append(text_area)    
+
+    # you will write more code here that prints the x, y, and z angular velocity values to the screen below the title. Use f strings!
+    # Don’t forget to round the angular velocity values to three decimal places
+
+    # send display group to screen
+    display.show(splash)
