@@ -26,7 +26,7 @@ title_area = label.Label(terminalio.FONT, text=title, color=0xFFFF00, x=5, y=5)
 count=0
 # send display group to screen
 display.show(splash)
-while count<20:
+while True:
     accel = mpu.acceleration
     led.value = accel[2] < 0
     x_area = label.Label(terminalio.FONT, text=f"x: {round(accel[0], 3)}", color=0xFFFF00, x=5, y=15)
