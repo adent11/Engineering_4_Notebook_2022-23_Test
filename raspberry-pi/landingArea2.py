@@ -12,11 +12,7 @@ i2c = busio.I2C(sclPin, sdaPin)
 mpu = adafruit_mpu6050.MPU6050(i2c, address=0x68)
 display_bus = displayio.I2CDisplay(i2c, device_address=0x3d, reset=board.GP17)
 display = adafruit_displayio_ssd1306.SSD1306(display_bus, width=128, height=64)
-# create the display group
 splash = displayio.Group()
-
-
-title_area = label.Label(terminalio.FONT, text=title, color=0xFFFF00, x=5, y=5)
 display.show(splash)
 
 def findArea(p1, p2, p3):
@@ -29,6 +25,9 @@ def inputToPoint(i):
     print(p)
     return p
 
+xAxis = Line(0,32,128,32, color=0xFFFF00)
+yAxis = Line(64, 0, 64, 128, color=0xFFFF00)
+
 while True:
     while len(splash) > 0:
         splash.pop()
@@ -38,8 +37,13 @@ while True:
         point3 = inputToPoint(input("Input 3: "))
         area = findArea(point1, point2, point3)
         print(area)
-        areaArea = label.Label(terminalio.FONT, text=f"area: {area}", color=0xFFFF00, x=5, y=15)
+        areaArea = label.Label(terminalio.FONT, text=f"area: {area}", color=0xFFFF00, x=0, y=0)
         splash.append(areaArea)
+        splash.append(xAxis)
+        splash.append(yAxis)
+        triangle = Triangle(point1[0]-64, 32-point1[1], point2[0]-64, 32-point2[1], point3[0]-64, 32-point3[1], outline=0xFFFF00)
+        splash.append(triangle)
+
     except:
         print("invalid input")
     if input("n to exit: ") == "n":
