@@ -14,9 +14,13 @@ display_bus = displayio.I2CDisplay(i2c, device_address=0x3d, reset=board.GP17)
 display = adafruit_displayio_ssd1306.SSD1306(display_bus, width=128, height=64)
 splash = displayio.Group()
 
-def findArea(p1, p2, p3):
-    a = .5*(p1[0]*(p2[1] - p3[1]) + p2[0]*(p3[1] - p1[1]) + p3[0]*(p1[1] - p2[1]))
-    return abs(a)
+triList = [['-50,-17','-57,12','-22,-7'],['28,-14','60,-7','54,18'],['45,30','51,-1','18,6'],['5,5','19,15','22,10']]
+cDists = []
+
+def evaluateTriangle(p1, p2, p3):
+    a = abs(.5*(p1[0]*(p2[1] - p3[1]) + p2[0]*(p3[1] - p1[1]) + p3[0]*(p1[1] - p2[1])))
+    c = ((p1[0] + p2[0] + p3[0])/3, (p1[1] + p2[1] + p3[1])/3)
+    return [a, c]
 
 def inputToPoint(i):
     iSplit = i.split(",")
@@ -27,6 +31,15 @@ def inputToPoint(i):
 xAxis = Line(0,32,128,32, color=0xFFFF00)
 yAxis = Line(64, 0, 64, 128, color=0xFFFF00)
 triangle = Triangle(54, 26, 10, 13, 4, 62, outline=0xFFFF00) #Triangle(point1[0]+64, 32-point1[1], point2[0]+64, 32-point2[1], point3[0]+64, 32-point3[1], outline=0xFFFF00)
+
+for tri in triList:
+    tData = evaluateTriangle(tri)
+    point1 = inputToPoint(tri[0])
+    point2 = inputToPoint(tri[1])
+    point3 = inputToPoint(tri[2])
+    triData = evaluateTriangle(point1, point2, point3)
+
+
 
 while True:
     while len(splash) > 0:
